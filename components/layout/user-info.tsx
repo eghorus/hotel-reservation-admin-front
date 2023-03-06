@@ -24,11 +24,11 @@ const UserInfo = ({ userName, userTitle }: UserInfoProps) => {
           <Avatar
             size="sm"
             name={userName}
-            ring="2px"
-            ringColor="teal.400"
+            ring="1px"
+            ringColor="red.400"
             ringOffset="2px"
             bg="messenger.500"
-            color="teal.100"
+            color="white"
           />
         </MenuButton>
         <Box display={{ base: "none", md: "block" }}>{userInfoText}</Box>
@@ -41,12 +41,12 @@ const UserInfo = ({ userName, userTitle }: UserInfoProps) => {
               as={NextLink}
               href="#"
               icon={<MdOutlineAccountCircle fontSize="15px" />}
-              color="gray.600"
               fontSize="sm"
+              _hover={{ bgColor: "messenger.50" }}
             >
               Profile
             </MenuItem>
-            <MenuItem icon={<MdLogout fontSize="15px" />} color="gray.600" fontSize="sm">
+            <MenuItem icon={<MdLogout fontSize="15px" />} fontSize="sm" _hover={{ bgColor: "messenger.50" }}>
               Log Out
             </MenuItem>
           </MenuGroup>
