@@ -1,6 +1,16 @@
-import { FormControl, FormErrorMessage, FormLabel, Input } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+  useBoolean,
+} from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-interface InputControlProps {
+type InputControlProps = {
   type: string;
   fieldProps: {
     name: string;
@@ -9,39 +19,59 @@ interface InputControlProps {
   };
   error?: string;
   isTouched?: boolean;
-}
+};
 
 const InputControl = ({ type, fieldProps, error, isTouched }: InputControlProps) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useBoolean(false);
+
   return (
     <FormControl
-      position="relative"
       isInvalid={isTouched && error ? true : false}
       sx={{
         position: "relative",
         my: "6",
-        "&:focus-within label, & > input:not(:placeholder-shown) + label": {
+        "&:focus-within label, & input:not(:placeholder-shown) ~ label": {
           transform: "scale(0.85) translateY(-24px)",
         },
       }}
     >
-      <Input id={fieldProps.name} type={type} placeholder=" " {...fieldProps} sx={{ bgColor: "white" }} />
-      <FormLabel
-        htmlFor={fieldProps.name}
-        sx={{
-          position: "absolute",
-          top: "1",
-          left: "3",
-          zIndex: "2",
-          borderRadius: "md",
-          p: "1",
-          bgColor: "white",
-          textTransform: "capitalize",
-          pointerEvents: "none",
-          transformOrigin: "left top",
-        }}
-      >
-        {fieldProps.name}
-      </FormLabel>
+      <InputGroup>
+        <Input
+          id={fieldProps.name}
+          type={isPasswordVisible ? "text" : type}
+          placeholder=" "
+          {...fieldProps}
+          sx={{ bgColor: "white" }}
+        />
+        {type === "password" && (
+          <InputRightElement>
+            <IconButton
+              aria-label="show password"
+              size="sm"
+              variant="ghost"
+              icon={isPasswordVisible ? <ViewOffIcon /> : <ViewIcon />}
+              onClick={setIsPasswordVisible.toggle}
+            />
+          </InputRightElement>
+        )}
+        <FormLabel
+          htmlFor={fieldProps.name}
+          sx={{
+            position: "absolute",
+            top: "1",
+            left: "3",
+            zIndex: "2",
+            borderRadius: "md",
+            p: "1",
+            bgColor: "white",
+            textTransform: "capitalize",
+            pointerEvents: "none",
+            transformOrigin: "left top",
+          }}
+        >
+          {fieldProps.name}
+        </FormLabel>
+      </InputGroup>
       <FormErrorMessage>{error}.</FormErrorMessage>
     </FormControl>
   );
