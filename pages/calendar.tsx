@@ -3,6 +3,7 @@ import Head from "next/head";
 import {
   Box,
   Heading,
+  Select,
   Table,
   TableCaption,
   TableContainer,
@@ -14,6 +15,7 @@ import {
   Tr,
   VisuallyHidden,
 } from "@chakra-ui/react";
+import { CalendarIcon } from "@chakra-ui/icons";
 import Layout from "../components/layout/layout";
 import { getDaysInRange, weekDays } from "../utils/date.utils";
 
@@ -21,12 +23,13 @@ import roomTypes from "../data/room-types";
 import reservations from "../data/reservations";
 
 export default function Calendar() {
+  const rangeCount = 100;
   const today = new Date();
-  const startDateInRange = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 50);
-  const dates = getDaysInRange(startDateInRange, 100);
+  const startDateInRange = new Date(today.getFullYear(), today.getMonth(), today.getDate() - rangeCount / 2);
+  const dates = getDaysInRange(startDateInRange, rangeCount);
   const dateToColumnMap = new Map<string, number>();
   dates.map((date, index) => dateToColumnMap.set(date.toLocaleDateString("en-GB"), index + 1));
-  const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedDate, setSelectedDate] = useState<number>(rangeCount / 2);
 
   return (
     <>
@@ -37,6 +40,20 @@ export default function Calendar() {
       <Heading as="h2" size="lg" mb="5">
         Reservations Calendar
       </Heading>
+      <Select
+        value={selectedDate}
+        icon={<CalendarIcon fontSize="md" />}
+        maxW="60"
+        mb="5"
+        borderColor="gray.400"
+        onChange={(e) => setSelectedDate(Number(e.target.value))}
+      >
+        {dates.map((date, index) => (
+          <option key={date.toDateString()} value={index}>
+            {date.toDateString()}
+          </option>
+        ))}
+      </Select>
       <TableContainer overflowY="auto" h="100vh" borderRadius="lg">
         <Table
           sx={{
@@ -58,16 +75,20 @@ export default function Calendar() {
                     alignItems="center"
                     rowGap="1"
                     w="10"
+                    border="1px"
+                    borderColor="gray.400"
                     borderRadius="md"
-                    p="2"
+                    px="6"
+                    py="2"
                     cursor="pointer"
                     transitionProperty="all"
                     transitionDuration="fast"
                     transitionTimingFunction="ease"
-                    _hover={{ boxShadow: "sm", bgColor: "gray.200" }}
-                    {...(date.getDate() === selectedDate.getDate() && date.getMonth() === selectedDate.getMonth()
-                      ? { bgColor: "messenger.500", color: "white" }
-                      : {})}
+                    {...(date.getDate() === dates[selectedDate].getDate() &&
+                    date.getMonth() === dates[selectedDate].getMonth()
+                      ? { boxShadow: "md", bgColor: "messenger.500", color: "white" }
+                      : { _hover: { bgColor: "gray.200", color: "initial" } })}
+                    onClick={() => setSelectedDate(index)}
                   >
                     <Text as="span" fontWeight="normal">
                       {weekDays[date.getDay()].slice(0, 3)}
@@ -84,7 +105,7 @@ export default function Calendar() {
             {roomTypes.map((roomType) => (
               <React.Fragment key={roomType._id}>
                 <Tr>
-                  <Th py="2" bgColor="pink.50" color="pink.400">
+                  <Th borderColor="pink.200 !important" py="2" bgColor="pink.50" color="pink.400">
                     {roomType.type.replace("_", " ")}
                   </Th>
                   {dates.map((_, index) => (
