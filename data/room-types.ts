@@ -1,4 +1,4 @@
-export type Room = {
+export type RoomType = {
   _id: string;
   type: string;
   size: number;
@@ -14,7 +14,7 @@ export type Room = {
   units: number[];
 };
 
-const rooms: Room[] = [
+const roomTypes: RoomType[] = [
   {
     _id: "superior",
     type: "superior",
@@ -227,4 +227,4 @@ const rooms: Room[] = [
   },
 ];
 
-export default rooms;
+export default roomTypes;

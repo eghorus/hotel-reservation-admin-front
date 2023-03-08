@@ -1,4 +1,4 @@
-const months = [
+export const months = [
   "January",
   "February",
   "March",
@@ -12,10 +12,10 @@ const months = [
   "November",
   "December",
 ];
-const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+export const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export function getDaysInRange(startDate: Date, duration: number) {
-  const days = [];
+  const dates = [];
 
   let currentDate = new Date(startDate.getTime());
   let currentYear = currentDate.getFullYear();
@@ -33,10 +33,12 @@ export function getDaysInRange(startDate: Date, duration: number) {
       currentDay = currentDate.getDate();
       lastDayOfCurrMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     }
-    days.push({ year: currentYear, month: months[currentMonth], day: currentDay, weekDay: weekDays[weekDayIndex] });
+
+    dates.push(new Date(currentYear, currentMonth, currentDay));
+
     currentDay++;
     weekDayIndex++;
   }
 
-  return days;
+  return dates;
 }
