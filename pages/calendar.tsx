@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Head from "next/head";
 import {
   Box,
@@ -30,6 +30,8 @@ export default function Calendar() {
   const dateToColumnMap = new Map<string, number>();
   dates.map((date, index) => dateToColumnMap.set(date.toLocaleDateString("en-GB"), index + 1));
   const [selectedDate, setSelectedDate] = useState<number>(rangeCount / 2);
+  const tableWindowRef = useRef<HTMLTableElement>(null);
+  const columnWidth = 98;
 
   return (
     <>
@@ -46,7 +48,10 @@ export default function Calendar() {
         maxW="60"
         mb="5"
         borderColor="gray.400"
-        onChange={(e) => setSelectedDate(Number(e.target.value))}
+        onChange={(e) => {
+          setSelectedDate(Number(e.target.value));
+          tableWindowRef.current?.scroll({ left: +e.target.value * columnWidth });
+        }}
       >
         {dates.map((date, index) => (
           <option key={date.toDateString()} value={index}>
@@ -54,7 +59,7 @@ export default function Calendar() {
           </option>
         ))}
       </Select>
-      <TableContainer overflowY="auto" h="70vh" borderRadius="lg">
+      <TableContainer overflowY="auto" h="70vh" borderRadius="lg" scrollBehavior="smooth" ref={tableWindowRef}>
         <Table
           sx={{
             "& tr > *:first-child": { position: "sticky", left: 0, zIndex: "1" },
@@ -166,7 +171,10 @@ export default function Calendar() {
                                 color="teal.900"
                                 textTransform="capitalize"
                               >
-                                <Box
+                                <Text
+                                  overflow="hidden"
+                                  textOverflow="ellipsis"
+                                  maxW={columnWidth * colSpan}
                                   mr="-6"
                                   border="1px"
                                   borderColor="teal.200"
@@ -180,7 +188,7 @@ export default function Calendar() {
                                   transform="skew(-15deg)"
                                 >
                                   {reservation.guest.name}
-                                </Box>
+                                </Text>
                               </Tooltip>
                             </Td>
                           );

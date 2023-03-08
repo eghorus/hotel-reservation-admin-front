@@ -30,8 +30,8 @@ const reservations: Reservations = {
       meals: "breakfast",
       smoking: false,
       dates: {
-        start: "18/01/2023",
-        end: "22/01/2023",
+        start: "20/01/2023",
+        end: "24/01/2023",
       },
       payment: {
         isPaid: true,
@@ -47,8 +47,8 @@ const reservations: Reservations = {
       meals: "breakfast",
       smoking: false,
       dates: {
-        start: "22/01/2023",
-        end: "28/01/2023",
+        start: "26/01/2023",
+        end: "31/01/2023",
       },
       payment: {
         isPaid: true,
