@@ -12,8 +12,8 @@ import {
   Text,
   Th,
   Thead,
+  Tooltip,
   Tr,
-  VisuallyHidden,
 } from "@chakra-ui/react";
 import { CalendarIcon } from "@chakra-ui/icons";
 import Layout from "../components/layout/layout";
@@ -54,15 +54,15 @@ export default function Calendar() {
           </option>
         ))}
       </Select>
-      <TableContainer overflowY="auto" h="100vh" borderRadius="lg">
+      <TableContainer overflowY="auto" h="70vh" borderRadius="lg">
         <Table
           sx={{
             "& tr > *:first-child": { position: "sticky", left: 0, zIndex: "1" },
             "& th, & td": { borderBottomColor: "gray.200" },
           }}
         >
-          <TableCaption w="sm">
-            <VisuallyHidden>Reservations Calendar</VisuallyHidden>
+          <TableCaption w="sm" m="auto" color="gray.400" fontSize="xs">
+            Reservations Calendar
           </TableCaption>
           <Thead position="sticky" top="0" zIndex="2">
             <Tr>
@@ -158,18 +158,30 @@ export default function Calendar() {
                             ));
                           const currentCell = (
                             <Td key={reservation._id} colSpan={colSpan} pl="2" py="1">
-                              <Box
-                                mr="-6"
-                                borderRadius="sm"
-                                px="2"
-                                py="1"
-                                bgColor="teal.400"
-                                color="gray.100"
-                                fontSize="xs"
-                                transform="skew(-15deg)"
+                              <Tooltip
+                                label={`${reservation.meals} / Smoking: ${reservation.smoking}`}
+                                hasArrow
+                                p="4"
+                                bgColor="teal.50"
+                                color="teal.900"
+                                textTransform="capitalize"
                               >
-                                {reservation.guest.name}
-                              </Box>
+                                <Box
+                                  mr="-6"
+                                  border="1px"
+                                  borderColor="teal.200"
+                                  borderRadius="sm"
+                                  px="4"
+                                  py="2"
+                                  bgColor="teal.100"
+                                  color="teal.900"
+                                  fontSize="xs"
+                                  fontWeight="medium"
+                                  transform="skew(-15deg)"
+                                >
+                                  {reservation.guest.name}
+                                </Box>
+                              </Tooltip>
                             </Td>
                           );
                           result = [...result, ...prevCells, currentCell];
