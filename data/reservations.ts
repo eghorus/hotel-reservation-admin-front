@@ -56,6 +56,76 @@ const reservations: Reservations = {
         method: "online",
       },
     },
+    {
+      _id: "3",
+      guest: { _id: "60e295f6f3d25b4b4026bd5a1", name: "Ahmed Rezk" },
+      unitId: 1004,
+      passport: "12345678",
+      meals: "breakfast",
+      smoking: false,
+      dates: {
+        start: "01/02/2023",
+        end: "05/02/2023",
+      },
+      payment: {
+        isPaid: true,
+        amount: 125,
+        method: "online",
+      },
+    },
+  ],
+  2004: [
+    {
+      _id: "1",
+      guest: { _id: "60e295f6f3d25b4b4026bd5a1", name: "Ahmed Rezk" },
+      unitId: 1004,
+      passport: "12345678",
+      meals: "breakfast",
+      smoking: false,
+      dates: {
+        start: "18/01/2023",
+        end: "22/01/2023",
+      },
+      payment: {
+        isPaid: true,
+        amount: 125,
+        method: "online",
+      },
+    },
+    {
+      _id: "2",
+      guest: { _id: "60e295f6f3d25b4b4026bd5a2", name: "Ahmed Rezk" },
+      unitId: 1004,
+      passport: "12345678",
+      meals: "breakfast",
+      smoking: false,
+      dates: {
+        start: "22/01/2023",
+        end: "28/01/2023",
+      },
+      payment: {
+        isPaid: true,
+        amount: 125,
+        method: "online",
+      },
+    },
+    {
+      _id: "3",
+      guest: { _id: "60e295f6f3d25b4b4026bd5a1", name: "Ahmed Rezk" },
+      unitId: 1004,
+      passport: "12345678",
+      meals: "breakfast",
+      smoking: false,
+      dates: {
+        start: "01/03/2023",
+        end: "05/03/2023",
+      },
+      payment: {
+        isPaid: true,
+        amount: 125,
+        method: "online",
+      },
+    },
   ],
   2008: [
     {
