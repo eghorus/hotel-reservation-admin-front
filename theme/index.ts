@@ -7,6 +7,9 @@ const theme = extendTheme({
   },
   styles: {
     global: {
+      html: {
+        fontSize: "14px",
+      },
       "html, body": {
         color: "gray.700",
       },

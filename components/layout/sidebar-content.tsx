@@ -1,5 +1,5 @@
 import { Button, Flex, Heading, Icon } from "@chakra-ui/react";
-import { FaCalendarAlt, FaClipboardList, FaCog, FaKey, FaMoneyCheckAlt, FaUsers } from "react-icons/fa";
+import { FaCalendarAlt, FaCog, FaKey, FaMoneyCheckAlt, FaUsers } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import NavItem from "./nav-item";
 
@@ -12,17 +12,14 @@ const SideBarContent = () => {
       <NavItem href="/calendar" icon={FaCalendarAlt}>
         Calendar
       </NavItem>
-      <NavItem href="/sales" icon={FaMoneyCheckAlt}>
-        Sales
+      <NavItem href="/reservations" icon={FaMoneyCheckAlt}>
+        Reservations
       </NavItem>
       <NavItem href="/guests" icon={FaUsers}>
         Guests
       </NavItem>
       <NavItem href="/rooms" icon={FaKey}>
         Rooms
-      </NavItem>
-      <NavItem href="#" icon={FaClipboardList}>
-        Reports
       </NavItem>
       <NavItem href="#" icon={FaCog}>
         Settings
